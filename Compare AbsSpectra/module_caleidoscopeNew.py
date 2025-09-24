@@ -124,29 +124,29 @@ def Plot_dfs(dfs, Norm_abs, Save, SaveDir, Exp_name, ColToKeep):
 
         # Define the color mapping for each condition
         condition_colors = {
-            'pH4.7': '#E69F00',
-            'pH5.2': '#56B4E9',
-            'pH6.1': '#009E73',
-            'pH7.4': '#F0E442',
-            'pH8.0': '#0072B2',
-            'pH9.3': '#D55E00'
+            'PinkChromoRS-162A': '#E69F00',
+            'PinkChromoRS': '#56B4E9',
+            'sdq': '#009E73',
+            'New fresh pH7_5': '#F0E442',
+            'Old pH8': '#0072B2',
+            'New pH7-5': '#D55E00'
         }
 
         for filename, df in dfs.items():
             LegRegex = re.search(r'(?<=U1_)(.*?)(?=\.TXT)', filename).group(0)
             color = condition_colors.get(LegRegex, '#000000')
-            ax.plot(df['Wavelength'], df[ColToKeep], label=LegRegex, color=color)
-            ax.set_xlabel('Wavelength')
-            ax.set_title('Absorbance spectra')
+            ax.plot(df['Wavelength'], df[ColToKeep], label=LegRegex, color=color, linewidth=3)
+            ax.set_xlabel('Wavelength', fontsize=14)
+            #ax.set_title('Absorbance spectra')
             if Norm_abs:
-                ax.set_ylabel('Normalized Absorbance')
+                ax.set_ylabel('Normalized Absorbance', fontsize=14)
             else:    
-                ax.set_ylabel('Absorbance')
+                ax.set_ylabel('Absorbance', fontsize=14)
             if Save[0]:    
                 df.to_csv(f"{SaveDir}{Exp_name}_{filename}_Abs.csv", index=False)
         
         
-        ax.legend(loc='center left', bbox_to_anchor=(0.8, 0.5))
+        ax.legend(loc='upper right')# , bbox_to_anchor=(0.8, 0.5)
 
         plt.tight_layout()
         # Save the data

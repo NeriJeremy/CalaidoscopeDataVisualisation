@@ -80,8 +80,7 @@ def Column_adj(dfs, first_frame, last_frame):
         return None
 
 #function to delete noise from laser(for fluo) and normalize datas
-def Norm(dfs, Laser_405, Laser_561, directory, Exp_name, Norm_abs, SaveDir,
-         BaselineCorr, BaselineWlgth):
+def Adjust(dfs, Laser_405, Laser_561, directory, Exp_name, SaveDir, BaselineCorr, BaselineWlgth, Norm_abs):
     
     try:        
         for filename, df in dfs.items():
@@ -101,7 +100,7 @@ def Norm(dfs, Laser_405, Laser_561, directory, Exp_name, Norm_abs, SaveDir,
                     #Substract the y values in columns_to_treat by the calculated baseline
                     for col in columns_to_treat:
                         df[col] = df[col] - BaselineMean[col]
-                
+                        
                 #Normalize abs data
                 if Norm_abs:                
                     A280rows_pos = df[(df['Wavelength'] >= 275) & (df['Wavelength'] <= 285)]                    
@@ -110,8 +109,7 @@ def Norm(dfs, Laser_405, Laser_561, directory, Exp_name, Norm_abs, SaveDir,
                     
                     # Apply normalization to the selected columns according to the A280nm (275/285) mean values
                     for col in columns_to_treat:
-                        df[col] = df[col] / A280mean[col] 
-                
+                        df[col] = df[col] / A280mean[col]
                  
             if filename.startswith('fluo'):
                 
@@ -130,7 +128,7 @@ def Norm(dfs, Laser_405, Laser_561, directory, Exp_name, Norm_abs, SaveDir,
         return None
 
 #function to create time series from the selected wavelength ranges
-def TimeSeries(dfs, FluoTS, AbsTS, Save, SmoothAbs, SmoothAbsRange, SmoothFluo, SmoothFluoRange, Norm_fluo):
+def TimeSeries(dfs, FluoTS, AbsTS, Save, SmoothAbs, SmoothAbsRange, SmoothFluo, SmoothFluoRange, Norm_fluo, Norm_abs):
     
     try:
         AbsTimeSeries = pd.DataFrame()
@@ -166,7 +164,14 @@ def TimeSeries(dfs, FluoTS, AbsTS, Save, SmoothAbs, SmoothAbsRange, SmoothFluo, 
                     smoothed_values = signal.convolve(padded_data, kernel, mode = 'valid', method = 'auto')
                     
                     # Update the DataFrame with the smoothed values
-                    select_rows_df.iloc[0, :] = smoothed_values.astype(np.float64)    
+                    select_rows_df.iloc[0, :] = smoothed_values.astype(np.float64)
+                    
+                #Normalize abs data
+                if Norm_abs:
+                    # Apply Min-Max normalization to the selected columns
+                    data = select_rows_df.iloc[0, :].values
+                    normalized_data = (data - data.min()) / (data.max() - data.min())
+                    select_rows_df.iloc[0, :] = normalized_data.astype(np.float64)
                     
                 #Concat the sum results for each columns in AbsTimeSeries df
                 AbsTimeSeries = pd.concat([AbsTimeSeries, select_rows_df], ignore_index=False)

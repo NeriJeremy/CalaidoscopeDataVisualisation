@@ -15,15 +15,15 @@ V3:
 #Requirements :Having some preprocessed datas from Dominique's Matlab code "Multiple_spectra_reading_Dom" 
 
 #Choose the directory containing the .txt files
-directory = 'S:/Jeremy/PinkChromoRS/Results/caleidoscope/20250228_pH_switch/Results/162A/raw_data'
+directory = 'S:/Jeremy/PinkChromoRS/Results/caleidoscope/20250814/InputAbsComparisonInit'
 
 #Choose the name of the column to keep
-ColToKeep = '1'
+ColToKeep = '50'
 
 #Smooth data with mean value
 Smooth = True
 #Choose the smooth range
-SmoothRange=10
+SmoothRange=5
 
 #Perform baseline correction
 BaselineCorr=True
@@ -39,10 +39,10 @@ Adj_abs_high=650
 Norm_abs=True
 
 #Choose the saving parameters
-Exp_name = '162A_AbsSpectra_pH'
-SaveDir = 'S:/Jeremy/Presentations/20250423-Dorus_Update'
+Exp_name = 'Abs comparison'
+SaveDir = 'S:/Jeremy/PinkChromoRS/Results/caleidoscope/20250814/InputAbsComparisonInit/'
 #Choose data to save [CSV, Plot]
-Save = [False, True]
+Save = [False, False]
 
 #################################################################################################################################################################
 

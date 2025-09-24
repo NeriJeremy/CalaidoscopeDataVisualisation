@@ -15,18 +15,18 @@ V7 :
 ##################################################### INPUT PARAMETERS ######################################################################### 
 
 #Choose the directory containing the .txt files
-directory = 'S:/Jeremy/PinkChromoRS/Results/caleidoscope/20250218/log_18févr.25_133836'
+directory = 'D:/log_28août25_145736'
 
 #Choose the used laser for fluo (the lasers wavelength will be removed)
-Laser_405=True
-Laser_561=True
+Laser_405=False
+Laser_561=False
 
 #Choose the beginning and the end of the acquisition
 first_frame = 1
-last_frame = 854
+last_frame = 100
 
 #Choose data to process and plot [Spectra, Time Series]
-DataToProcess = [True, True]
+DataToProcess = [True, False]
 
 
 #Smooth Abs data [Spectra, TimeSerie]
@@ -40,7 +40,7 @@ BaselineCorr=True
 BaselineWlgth=[700,750]
 
 #Normalize abs spectra (with Abs280nm)
-Norm_abs=True
+Norm_abs=False
 
 #Choose Abs wavelength integration for time serie
 AbsTS = [550, 600]
@@ -48,12 +48,12 @@ AbsTS = [550, 600]
 #Adjust abs spectra
 Adj_abs_spectra=True
 #Choose lower and upper limit of the adjust abs spectra
-Adj_abs_low=250
-Adj_abs_high=700
+Adj_abs_low=350
+Adj_abs_high=650
 
 
 #Smooth Fluo data [Spectra, TimeSerie]
-SmoothFluo=[False, False]
+SmoothFluo=[True, False]
 #Choose the smooth range [Spectra, TimeSerie]
 SmoothFluoRange=[5,5]
 
@@ -66,12 +66,12 @@ FluoTS = [600, 650]
 #Adjust fluo spectra
 Adj_fluo_spectra=True
 #Choose lower and upper limit of the adjust fluo spectra
-Adj_fluo_low=400
+Adj_fluo_low=570
 Adj_fluo_high=800
 
 #Choose the saving parameters
-Exp_name = 'Pink_Offswitch'
-SaveDir = 'S:/Jeremy/Presentations/20250423-Dorus_Update/'
+Exp_name = 'Cerulean'
+SaveDir = 'D:/'
 #Choose data to save [CSV, Plot]
 Save = [False, True]
 
